@@ -1,0 +1,21 @@
+<div class="a4-container" id="print-section" [ngClass]="orientation">
+  <div class="controls no-print">
+    <input type="file" (change)="onFileChange($event)" multiple accept="image/*">
+    <label>
+      <input type="radio" name="orientation" value="portrait" [checked]="orientation === 'portrait'" (change)="setOrientation('portrait')">
+      Portrait (12 cells)
+    </label>
+    <label>
+      <input type="radio" name="orientation" value="landscape" [checked]="orientation === 'landscape'" (change)="setOrientation('landscape')">
+      Landscape (9 cells)
+    </label>
+    <button ngxPrint printSectionId="print-section" [printTitle]="'A4 Image Table'" [useExistingCss]="true">Print A4</button>
+  </div>
+  <div class="image-grid" [ngClass]="getGridClass()">
+    <ng-container *ngFor="let i of getGridIndices()">
+      <div class="image-cell">
+        <img *ngIf="images[i]" [src]="images[i]" alt="Uploaded image">
+      </div>
+    </ng-container>
+  </div>
+</div>
